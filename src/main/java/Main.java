@@ -17,7 +17,7 @@ public class Main {
         Thread.sleep(1000);
         hoverAndClick(driver, "BAGS","Luggage");
         Thread.sleep(3000);
-        List<WebElement> luggage = driver.findElements(By.xpath("//article/a[contains(@href , '/p/')]"));
+        List<WebElement> luggage = driver.findElements(By.xpath("//article/a[contains(@href , 'luggage')]"));
 
         for (WebElement el : luggage) {
             Thread.sleep(5000);
@@ -41,7 +41,7 @@ public class Main {
         removeElement.click();
 
         Thread.sleep(5000);
-        WebElement signInButton = driver.findElement(By.xpath("//a[contains(@href, '/zap/preAuth/signin')]"));
+        WebElement signInButton = driver.findElement(By.xpath("//a[contains(text(), 'Sign In')]"));
         String url = signInButton.getAttribute("href");
         System.out.println(url);
 
