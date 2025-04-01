@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class DriverGenerator {
     public static WebDriver driver;
 
-    public static WebDriver getDriver()  {
+    public static WebDriver getDriver() {
         if (driver == null) {
             driver = new ChromeDriver();
             driver.get("https://staff.am/");
@@ -15,7 +15,7 @@ public class DriverGenerator {
         return driver;
     }
 
-    public static void quitDriver() {
+    public static void quitDriver() throws InterruptedException {
         if (driver != null) {
             driver.quit();
         }

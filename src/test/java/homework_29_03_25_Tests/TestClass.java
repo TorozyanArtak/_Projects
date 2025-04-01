@@ -13,7 +13,7 @@ public class TestClass {
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() throws InterruptedException {
         DriverGenerator.quitDriver();
     }
 

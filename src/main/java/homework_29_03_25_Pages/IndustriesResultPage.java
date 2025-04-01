@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -12,6 +13,8 @@ public class IndustriesResultPage extends BasePage {
     private final By searchInput = By.xpath("//input[@placeholder='Enter keywords...']");
     private final By enterSearchButton = By.xpath("//div[text()='Search']");
     private final By companiesResult = By.xpath("//div[img[@alt='company-logo']]/div/div/div/div[string-length(text()) > 0]");
+    private final By viewMoreLoc = By.xpath("(//div[@tabindex]/div[text()= 'View more'])[1]");
+    private final By hiringLoc = By.xpath("//div[text()='Hiring']");
     public static int randomCompany;
     public static List<WebElement> companies;
 
@@ -32,15 +35,6 @@ public class IndustriesResultPage extends BasePage {
         Thread.sleep(3000);
     }
 
-    public List<String> getNamesOfCompany() {
-        List<String> names;
-        names = driver.findElements(companiesResult)
-                .stream()
-                .map(el -> el.getText().toLowerCase())
-                .collect(Collectors.toList());
-        return names;
-
-    }
 
     public String getRandomCompanyDetails() throws InterruptedException {
 
@@ -64,6 +58,47 @@ public class IndustriesResultPage extends BasePage {
         return driver.findElement(By.xpath(String.format("//div[contains(text(),'%s')]/ancestor-or-self::div[4]", nameCompany)))
                 .getText().toLowerCase();
 
+    }
+
+    public IndustriesResultPage openViewMoreSection() throws InterruptedException {
+        Thread.sleep(5000);
+        Actions actions = new Actions(driver);
+        actions.click(driver.findElement(viewMoreLoc)).perform();
+        Thread.sleep(3000);
+        return this;
+    }
+
+    public IndustriesResultPage selectFilterIndustry(String industryName) throws InterruptedException {
+        Actions actions = new Actions(driver);
+        Thread.sleep(5000);
+        actions.click(driver.findElement(By.xpath(String.format("//span[text()='%s']", industryName)))).perform();
+        Thread.sleep(5000);
+        return this;
+    }
+
+    public List<String> getNamesOfCompany() {
+        List<String> names;
+        names = driver.findElements(companiesResult)
+                .stream()
+                .map(el -> el.getText().toLowerCase())
+                .collect(Collectors.toList());
+        return names;
+
+    }
+
+    public List<Company> getCompaniesList() throws InterruptedException {
+        List<Company> companies = new ArrayList<>();
+        List<String> companiesNames = getNamesOfCompany();
+        Thread.sleep(5000);
+        for (String names : companiesNames) {
+            companies.add(new Company(names));
+        }
+        return companies;
+    }
+
+    public IndustriesResultPage enterHiring() {
+        driver.findElement(hiringLoc).click();
+        return this;
     }
 
 
