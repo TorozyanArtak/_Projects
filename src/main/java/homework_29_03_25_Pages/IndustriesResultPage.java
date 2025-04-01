@@ -1,32 +1,30 @@
 package homework_29_03_25_Pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-public class IndustriesResultPage {
-    private final WebDriver driver;
+public class IndustriesResultPage extends BasePage {
     private final By searchInput = By.xpath("//input[@placeholder='Enter keywords...']");
     private final By enterSearchButton = By.xpath("//div[text()='Search']");
     private final By companiesResult = By.xpath("//div[img[@alt='company-logo']]/div/div/div/div[string-length(text()) > 0]");
+    public static int randomCompany;
+    public static List<WebElement> companies;
 
-    public IndustriesResultPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void enterKeywordInSearchField(String keyword) throws InterruptedException {
+    public IndustriesResultPage enterKeywordInSearchField(String keyword) throws InterruptedException {
         driver.findElement(searchInput).sendKeys(keyword);
         Thread.sleep(3000);
+        return this;
     }
 
-    public void clearSearchField() throws InterruptedException {
-        driver.findElement(searchInput).sendKeys(Keys.CONTROL + "a");
-        driver.findElement(searchInput).sendKeys(Keys.SPACE);
+    public IndustriesResultPage clearSearchField() throws InterruptedException {
+        driver.findElement(searchInput).clear();
         Thread.sleep(3000);
+        return this;
     }
 
     public void submitSearchButton() throws InterruptedException {
@@ -44,16 +42,28 @@ public class IndustriesResultPage {
 
     }
 
-    public void selectRandomCompany(String nameCompany) throws InterruptedException {
-        Actions actions = new Actions(driver);
-        actions.click(driver.findElement(By.xpath("//div[contains(text(),'" + nameCompany + "')]"))).perform();
-        Thread.sleep(3000);
+    public String getRandomCompanyDetails() throws InterruptedException {
+
+        companies = driver.findElements(By.xpath("//div[img[@alt='company-logo']]/div/div/div/div[string-length(text()) > 0]"));
+        Thread.sleep(5000);
+        Random rand = new Random();
+        randomCompany = rand.nextInt(companies.size());
+        return getCompanyDetails(companies.get(randomCompany).getText());
     }
 
 
-    public String getExpectedCompanyDetails(String nameCompany) {
-        return driver.findElement(By.xpath("//div[contains(text(),'" + nameCompany + "')]/ancestor-or-self::div[4]"))
+    public CompanyPage clickRandomPage() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        actions.click(companies.get(randomCompany)).perform();
+        Thread.sleep(3000);
+        return new CompanyPage();
+    }
+
+
+    public String getCompanyDetails(String nameCompany) {
+        return driver.findElement(By.xpath(String.format("//div[contains(text(),'%s')]/ancestor-or-self::div[4]", nameCompany)))
                 .getText().toLowerCase();
+
     }
 
 
