@@ -9,15 +9,19 @@ public class DriverGenerator {
     public static WebDriver getDriver() {
         if (driver == null) {
             driver = new ChromeDriver();
-            driver.get("https://staff.am/");
             driver.manage().window().maximize();
         }
         return driver;
     }
 
-    public static void quitDriver() throws InterruptedException {
+    public static void initBrowser(String url) {
+        getDriver().get(url);
+    }
+
+    public static void quitDriver() {
         if (driver != null) {
             driver.quit();
+            driver = null;
         }
     }
 }

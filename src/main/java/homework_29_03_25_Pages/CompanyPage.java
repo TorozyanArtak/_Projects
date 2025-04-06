@@ -8,14 +8,15 @@ public class CompanyPage extends BasePage {
     private final By industryLoc = By.xpath("//div[text() ='Industry']/following-sibling::div");
 
     public String getCompanyDetails() {
-        String name = driver.findElement(namesLoc).getText().toLowerCase();
+        String name = driver.findElement(namesLoc).getText();
         String details = driver.findElement(detailsLoc).getText()
                 .replace("(", "").replace(")", "");
         return name + "\n" + details;
     }
 
     public String getIndustryDetail() {
-        return driver.findElement(industryLoc).getText().toLowerCase();
+
+        return driver.findElement(industryLoc).getText();
     }
 
 }

@@ -11,28 +11,26 @@ import java.util.List;
 public class TestListValidation extends TestClass {
 
     @Test
-    public void testHomework() throws InterruptedException {
+    public void testHomework() {
         IndustriesResultPage resultPage = new IndustriesResultPage();
         //Step 1-2
         resultPage.header.selectCategoryOfHeader("Companies")
                 .openViewMoreSection()
                 .selectFilterIndustry("Sport");
-        Thread.sleep(5000);
 
         //Step3
         List<Company> companiesListAfterHeaderFiltering = resultPage.getCompaniesList();
 
         //Step4
         resultPage.enterHiring();
-        Thread.sleep(3000);
         List<Company> companiesListAfterHiringFilter = resultPage.getCompaniesList();
 
         //Step5-6 ->2-4
-        resultPage.footer.selectCategoryOfFooter()
-                .selectFilterIndustry("Sport");
+        resultPage.footer.selectCategoryOfFooter();
+
+        resultPage.selectFilterIndustry("Sport");
         List<Company> companiesListAfterFooterFiltering = resultPage.getCompaniesList();
         resultPage.enterHiring();
-        Thread.sleep(3000);
         List<Company> companiesListAfterHiringFilter_2 = resultPage.getCompaniesList();
 
         Assertions.assertEquals(companiesListAfterHeaderFiltering, companiesListAfterFooterFiltering,
