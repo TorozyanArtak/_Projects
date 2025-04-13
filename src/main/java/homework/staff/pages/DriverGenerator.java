@@ -1,4 +1,4 @@
-package homework_29_03_25_Pages;
+package homework.staff.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -6,11 +6,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class DriverGenerator {
     public static WebDriver driver;
 
-    public static WebDriver getDriver()  {
+    public static void initDriver() {
         if (driver == null) {
             driver = new ChromeDriver();
-            driver.get("https://staff.am/");
             driver.manage().window().maximize();
+        }
+    }
+
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            throw new IllegalStateException ("Driver isn't initialized");
         }
         return driver;
     }
@@ -18,6 +23,7 @@ public class DriverGenerator {
     public static void quitDriver() {
         if (driver != null) {
             driver.quit();
+            driver = null;
         }
     }
 }

@@ -1,20 +1,18 @@
-package homework_29_03_25_Tests;
+package homework.staff.tests;
 
-import homework_29_03_25_Pages.DriverGenerator;
+import homework.staff.pages.DriverGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
 
 public class TestClass {
 
     @BeforeEach
     public void setUp(){
-        DriverGenerator.getDriver();
+        DriverGenerator.initDriver();
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown()  {
         DriverGenerator.quitDriver();
     }
-
 }
