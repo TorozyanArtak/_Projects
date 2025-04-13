@@ -1,6 +1,6 @@
-package homework_29_03_25_Tests;
+package homework.staff.tests;
 
-import homework_29_03_25_Pages.DriverGenerator;
+import homework.staff.pages.DriverGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -8,12 +8,11 @@ public class TestClass {
 
     @BeforeEach
     public void setUp(){
-        DriverGenerator.initBrowser("https://staff.am/");
+        DriverGenerator.initDriver();
     }
 
     @AfterEach
     public void tearDown()  {
         DriverGenerator.quitDriver();
     }
-
 }

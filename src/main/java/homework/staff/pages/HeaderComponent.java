@@ -1,4 +1,4 @@
-package homework_29_03_25_Pages;
+package homework.staff.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,12 +10,12 @@ import java.time.Duration;
 
 public class HeaderComponent {
     private final WebDriver driver;
+    private final String categoryXPath = "//div[contains(@class,'navbar-collapse')]//div[text()='%s']";
 
-    public IndustriesResultPage selectCategoryOfHeader(String category) {
+    public void selectCategoryOfHeader(String category) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format("//div[contains(@class,'navbar-collapse')]//div[text()='%s']", category))));
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(categoryXPath, category))));
         el.click();
-        return new IndustriesResultPage();
     }
 
     public HeaderComponent(WebDriver driver) {
