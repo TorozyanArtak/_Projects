@@ -2,27 +2,27 @@ package homework.staff.pages;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 abstract class BasePage {
-    protected WebDriver driver = DriverGenerator.getDriver();
+    protected WebDriver driver;
     protected WebDriverWait wait;
-    protected JavascriptExecutor js = (JavascriptExecutor) driver;
+    protected JavascriptExecutor js;
 
-    public HeaderComponent header = new HeaderComponent(driver);
-    public FooterComponent footer = new FooterComponent(driver);
+    public HeaderComponent header;
+    public FooterComponent footer;
 
     public BasePage() {
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        PageFactory.initElements(driver, this);
-    }
+        this.driver = DriverGenerator.getDriver();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        this.js = (JavascriptExecutor) driver;
 
-    protected void click(WebElement webElement) {
-        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
-        js.executeScript("arguments[0].click();", webElement);
+        this.header = new HeaderComponent(driver);
+        this.footer = new FooterComponent(driver);
+
+        PageFactory.initElements(driver, this);
     }
 }

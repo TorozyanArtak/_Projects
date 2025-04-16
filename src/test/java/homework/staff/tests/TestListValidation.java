@@ -2,19 +2,19 @@ package homework.staff.tests;
 
 
 import homework.staff.pages.DriverGenerator;
-import homework.staff.pages.IndustriesResultPage;
+import homework.staff.pages.SearchResultPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class TestListValidation extends TestClass {
+public class TestListValidation extends BaseTest {
 
 
     @Test
     public void testHomework() {
         DriverGenerator.getDriver().get("https://staff.am/");
-        IndustriesResultPage resultPage = new IndustriesResultPage();
+        SearchResultPage resultPage = new SearchResultPage();
         //Step 1-2
         resultPage.header.selectCategoryOfHeader("Companies");
         resultPage.openViewMoreSection()

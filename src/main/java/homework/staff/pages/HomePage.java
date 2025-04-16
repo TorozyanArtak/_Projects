@@ -30,10 +30,10 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public IndustriesResultPage enterSearchButton() {
+    public SearchResultPage enterSearchButton() {
         wait.until(ExpectedConditions.elementToBeClickable(searchButton))
                 .click();
-        return new IndustriesResultPage();
+        return new SearchResultPage();
     }
 
     public String getIndustryDetail() {
