@@ -1,7 +1,6 @@
 package homework.staff.tests;
 
 import homework.staff.pages.DriverGenerator;
-import homework.staff.pages.JobsPage;
 import homework.staff.pages.SearchResultPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
