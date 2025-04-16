@@ -4,11 +4,11 @@ import homework.staff.pages.DriverGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-public class TestClass {
+public class BaseTest {
 
     @BeforeEach
     public void setUp(){
-        DriverGenerator.initDriver();
+        DriverGenerator.getDriver();
     }
 
     @AfterEach

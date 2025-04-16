@@ -3,18 +3,18 @@ package homework.staff.tests;
 import homework.staff.pages.CompanyPage;
 import homework.staff.pages.DriverGenerator;
 import homework.staff.pages.HomePage;
-import homework.staff.pages.IndustriesResultPage;
+import homework.staff.pages.SearchResultPage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class TestCompanyAndDataValidation extends TestClass {
+public class TestCompanyAndDataValidation extends BaseTest {
     @Test
     public void testCompanyAndDataValidation() {
         DriverGenerator.getDriver().get("https://staff.am/");
         //Steps 1-8
         HomePage homePage = new HomePage();
-        IndustriesResultPage resultPage = homePage.selectRadioButtonOnTab("Companies")
+        SearchResultPage resultPage = homePage.selectRadioButtonOnTab("Companies")
                 .selectIndustryCategory("Information technologies")
                 .enterSearchButton();
 
