@@ -3,8 +3,16 @@ package homework.staff.tests;
 import homework.staff.pages.DriverGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.openqa.selenium.WebDriver;
+import utills.screenshot.ScreenshotOnFailure;
 
 public class BaseTest {
+
+    protected final WebDriver driver = DriverGenerator.getDriver();
+
+    @RegisterExtension
+    ScreenshotOnFailure screenshot = new ScreenshotOnFailure(driver);
 
     @BeforeEach
     public void setUp(){

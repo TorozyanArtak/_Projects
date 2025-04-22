@@ -37,8 +37,7 @@ public class SearchResultPage extends BasePage {
     @FindBy(xpath = "//div[text()='Clear filters']")
     private WebElement clearFilters;
     @FindBy(xpath = "//li[@class='next']/preceding-sibling::li[1]/a")
-    private WebElement lastPage;
-    Actions actions = new Actions(driver);
+    private WebElement lastPage;;
     public static int randomCompany;
     public static List<WebElement> companies;
 
@@ -68,7 +67,6 @@ public class SearchResultPage extends BasePage {
 
 
     public CompanyPage clickRandomPage() {
-        Actions actions = new Actions(driver);
         actions.click(companies.get(randomCompany)).perform();
         return new CompanyPage();
     }
@@ -130,9 +128,9 @@ public class SearchResultPage extends BasePage {
         wait.until(ExpectedConditions.urlContains("job"));
 
     }
+
     public void clickViewMore(String filterType) {
         List<WebElement> viewMores = driver.findElements(By.xpath(String.format(viewMoreXpath, filterType)));
-        System.out.println(viewMores.size());
         if (!viewMores.isEmpty()) {
             WebElement viewMore = viewMores.getFirst();
             actions.moveToElement(viewMore).perform();
@@ -170,7 +168,6 @@ public class SearchResultPage extends BasePage {
             int jobsCountOFLastPage = getCountOnePage();
             return (lastPageNumber - 1) * 50 + jobsCountOFLastPage;
         } catch (TimeoutException e) {
-            System.out.println("catch");
             return getCountOnePage();
         }
     }
