@@ -8,11 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-
 public class RegisterPage extends BasePage {
 
     @FindBy(xpath = "//div[text()='First name']//following-sibling::div/input")
@@ -20,9 +15,9 @@ public class RegisterPage extends BasePage {
     @FindBy(xpath = "//div[text()='Last name']//following-sibling::div/input")
     private WebElement lastname;
     @FindBy(xpath = "//div[text()=\"Password\"]//following-sibling::div/input")
-    private WebElement password;
+    private WebElement passwordField;
     @FindBy(xpath = "//div[text()='Confirm password']//following-sibling::div/input")
-    private WebElement confirmPassword;
+    private WebElement confirmPasswordField;
     @FindBy(xpath = "(//div[text()='Register'])[3]")
     private WebElement register;
     @FindBy(xpath = "//div[text()='Email']//following-sibling::div/input")
@@ -40,26 +35,22 @@ public class RegisterPage extends BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(lastname)).sendKeys(lastName);
     }
 
-    public void setPassword() {
-        Properties prop = new Properties();
-        try {
-            FileInputStream fis = new FileInputStream("src/test/resources/data.properties");
-            prop.load(fis);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void setPasswordToField(WebElement passwordField) {
+        String password = System.getProperty("password");
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password must be provided via -Dpassword=yourPassword");
         }
-        wait.until(ExpectedConditions.elementToBeClickable(password)).sendKeys(prop.getProperty("password"));
+        WebElement field = wait.until(ExpectedConditions.visibilityOf(passwordField));
+        field.clear();
+        field.sendKeys(password);
+    }
+
+    public void setPassword() {
+        setPasswordToField(passwordField);
     }
 
     public void confirmPassword() {
-        Properties prop = new Properties();
-        try {
-            FileInputStream fis = new FileInputStream("src/test/resources/data.properties");
-            prop.load(fis);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        wait.until(ExpectedConditions.elementToBeClickable(confirmPassword)).sendKeys(prop.getProperty("password"));
+        setPasswordToField(confirmPasswordField);
     }
 
     public void agreeToTerms() {
@@ -75,21 +66,21 @@ public class RegisterPage extends BasePage {
         actions.moveToElement(wait.until(ExpectedConditions.elementToBeClickable(register))).click().perform();
     }
 
-    public boolean enterEmailAndCheckInvalidMessage(String emailText, String expectedErrorText) {
+    private void enterEmail(String emailText) {
         WebElement emailField = wait.until(ExpectedConditions.visibilityOf(email));
         emailField.click();
         emailField.clear();
         emailField.sendKeys(emailText);
         emailField.sendKeys(Keys.TAB);
+    }
+
+    public boolean enterEmailAndCheckInvalidMessage(String emailText, String expectedErrorText) {
+        enterEmail(emailText);
         return wait.until(ExpectedConditions.textToBePresentInElement(emailError, expectedErrorText));
     }
 
     public boolean enterValidEmailAndVerifyNoError(String emailText) {
-        WebElement emailField = wait.until(ExpectedConditions.visibilityOf(email));
-        emailField.click();
-        emailField.clear();
-        emailField.sendKeys(emailText);
-        emailField.sendKeys(Keys.TAB);
+        enterEmail(emailText);
         try {
             return wait.until(ExpectedConditions.invisibilityOf(emailError))
                     || wait.until(_ -> emailError.getText().isBlank());
@@ -101,5 +92,4 @@ public class RegisterPage extends BasePage {
     public String getRegisterButtonStyle() {
         return wait.until(ExpectedConditions.visibilityOf(register)).getDomAttribute("style");
     }
-
 }

@@ -13,9 +13,9 @@ public class RegistrationTest extends BaseTest{
     void testRegistration() {
         steps.openMainPage();
         steps.selectCandidate();
-        steps.fillBirthday("1985", "January", "19");
         steps.setFirstName("Artak");
         steps.setLastName("Torozyan");
+        steps.fillBirthday("1985", "January", "19");
         Assertions.assertTrue(steps.enterEmailAndCheckInvalidMessage("artak.", "The field must be a valid email address.")
                 , "Expected an invalid email error message when entering 'artak.' but it was not displayed.");
         Assertions.assertTrue(steps.enterValidEmailAndVerifyNoError("art85@mail.ru")
