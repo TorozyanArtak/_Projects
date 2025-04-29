@@ -111,7 +111,7 @@ public class SearchResultPage extends BasePage {
     public List<String> getCompaniesList() {
         WebElement filterCount = driver.findElement(By.xpath("//span[text()='Sport']/span"));
         WebElement resultCount = driver.findElement(By.xpath("//img[@alt='building']//following-sibling::div"));
-        wait.until(_ ->
+        wait.until(a_ ->
                 Integer.parseInt(filterCount.getText().replaceAll("\\D", ""))
                         == Integer.parseInt(resultCount.getText().trim()));
         List<WebElement> visibleCompanies = wait.until(

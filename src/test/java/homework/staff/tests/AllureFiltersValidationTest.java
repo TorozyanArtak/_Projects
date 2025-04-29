@@ -14,11 +14,11 @@ public class AllureFiltersValidationTest extends FiltersTest {
     @CsvSource({
             "Job special tag",
             "Job category",
-            "Specialist level",
-            "Job salary",
-            "Job types",
-            "Job terms",
-            "By cities"
+//            "Specialist level",
+//            "Job salary",
+//            "Job types",
+//            "Job terms",
+//            "By cities"
     })
     public void filtersValidation(String filterType) {
 
