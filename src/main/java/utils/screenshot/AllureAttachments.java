@@ -1,10 +1,10 @@
-package utills.screenshot;
+package utils.screenshot;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import utills.loggers.Log;
+import utils.loggers.Log;
 
 import java.io.ByteArrayInputStream;
 

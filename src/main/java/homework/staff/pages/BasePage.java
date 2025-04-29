@@ -1,5 +1,7 @@
 package homework.staff.pages;
 
+import components.pages.FooterComponent;
+import components.pages.HeaderComponent;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;

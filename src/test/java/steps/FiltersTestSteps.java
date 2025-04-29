@@ -4,8 +4,8 @@ import homework.staff.pages.DriverGenerator;
 import homework.staff.pages.SearchResultPage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import utills.loggers.Log;
-import utills.screenshot.AllureAttachments;
+import utils.loggers.Log;
+import utils.screenshot.AllureAttachments;
 
 import java.util.List;
 

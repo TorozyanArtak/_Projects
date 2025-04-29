@@ -1,4 +1,4 @@
-package utills.loggers;
+package utils.loggers;
 
 import io.qameta.allure.Allure;
 import org.slf4j.Logger;
