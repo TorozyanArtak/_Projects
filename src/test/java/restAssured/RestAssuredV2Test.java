@@ -7,6 +7,7 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import restAssured.helper.Data;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +22,6 @@ public class RestAssuredV2Test {
 
     private static final String BASE_URI = "https://gorest.co.in";;
     private static final String BASE_PATH = "/public/v2";
-    private static final String TOKEN = "Bearer 2b9bc29b3db818fc69f663f8c2af0720024db38d786387df66022f96b683fa77";
 
     private List<Object> getAllUsers() {
         return givenWithSpec()
@@ -84,7 +84,7 @@ public class RestAssuredV2Test {
         userId = response.jsonPath().getInt("[" + randomIndex + "].id");
         logger.info("Deleting user with ID: {}", userId);
         givenWithSpec()
-                .header("Authorization", TOKEN)
+                .header("Authorization", Data.TOKEN)
                 .when()
                 .delete("/users/" + userId)
                 .then()

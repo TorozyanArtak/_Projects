@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
+import restAssured.helper.Data;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,9 +19,7 @@ public class RestAssuredV1Test {
     private static int userId;
 
     private static final String BASE_URI = "https://gorest.co.in";
-    ;
     private static final String BASE_PATH = "/public/v1";
-    private static final String TOKEN = "Bearer 2b9bc29b3db818fc69f663f8c2af0720024db38d786387df66022f96b683fa77";
 
     private List<Object> getAllUsers() {
         return givenWithSpec()
@@ -82,7 +81,7 @@ public class RestAssuredV1Test {
                 .get("/users");
         userId = response.jsonPath().getInt("data[" + randomIndex + "].id");
         givenWithSpec()
-                .header("Authorization", TOKEN)
+                .header("Authorization", Data.TOKEN)
                 .when()
                 .delete("/users/" + userId)
                 .then()

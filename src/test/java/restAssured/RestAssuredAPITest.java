@@ -5,7 +5,9 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.*;
+import restAssured.helper.Data;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,7 +22,7 @@ public class RestAssuredAPITest {
 
     private static final String BASE_URI = "https://gorest.co.in";
     private static final String BASE_PATH = "/public-api";
-    private static final String TOKEN = "Bearer 2b9bc29b3db818fc69f663f8c2af0720024db38d786387df66022f96b683fa77";
+
 
     private List<Object> getAllUsers() {
         return RestAssured
@@ -39,10 +41,9 @@ public class RestAssuredAPITest {
 
     @BeforeEach
     public void setup() {
-        RestAssured.baseURI =BASE_URI;
+        RestAssured.baseURI = BASE_URI;
         requestSpec = new RequestSpecBuilder()
                 .setBasePath(BASE_PATH)
-                .addHeader("Authorization", TOKEN)
                 .build();
     }
 
@@ -85,6 +86,7 @@ public class RestAssuredAPITest {
                 .get("/users");
         userId = response.jsonPath().getInt("data[" + randomIndex + "].id");
         givenWithSpec()
+                .header("Authorization", Data.TOKEN)
                 .when()
                 .delete("/users/" + userId)
                 .then()
@@ -96,7 +98,7 @@ public class RestAssuredAPITest {
 
     @Test
     @Order(4)
-    public void shouldReturnNotFoundForDeletedUser(){
+    public void shouldReturnNotFoundForDeletedUser() {
         givenWithSpec()
                 .when()
                 .get("/users/" + userId)
