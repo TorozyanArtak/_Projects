@@ -71,7 +71,7 @@ public class CreateAndVerifyUserPostTest {
                 .when()
                 .get("/users/" + randomUser_Id + "/posts")
                 .then()
-                .statusCode(201)
+                .statusCode(200)
                 .extract()
                 .jsonPath()
                 .getList("", PostDto.class);
